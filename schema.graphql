@@ -1,0 +1,24 @@
+
+scalar Point
+scalar Date
+scalar DateTime
+scalar Long
+
+type Student {
+    name: String!
+    school:String
+    id:ID!
+    sub1:Int
+    sub2:Int
+    score:Int @cypher(statement:"""
+    match(n:Student) return (n.sub1+n.sub2)
+    """)
+    goes:School @relation(direction:OUT,name:"study_at")
+}
+type School {
+    name: String!
+    id:Int
+    has:Student @relation(direction:IN,name:"study_at")
+}
+
+
